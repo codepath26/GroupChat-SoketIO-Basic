@@ -1,0 +1,100 @@
+to make the npm init defult just put -y 
+
+1)
+npm i soket.io 
+
+npm i nanoid // this is use for the frontend part broalso useinto the react bro
+nanoid is use to create the random id for the user which are use into the webdevlopment // 
+Import the nanoid function from the nanoid package
+
+import { nanoid } from 'nanoid';
+
+// Generate a new unique ID
+
+const uniqueId = nanoid()   // By default, it generates a 21-character ID
+console.log(uniqueId);
+
+
+
+2)
+connect to the server
+const io = require('soket.io')(3000);
+io.on('connection',(socket)=>{
+socket.on('disconnect' ,()=>{
+
+})
+} )
+
+// now comes into  the front end part bro
+first add the socket cdn to html 
+<!-- Include Socket.io library -->
+<script src="https://cdn.socket.io/4.1.3/socket.io.js"></script>
+make js file
+
+
+3)  what is the differance between the create server and the Server method into the http?
+ans_
+ createserver basically use to create normal server but in case of the server() method it's provide some more control and functionallity and costumisation you need over your server.
+
+ 4)
+
+
+ client side socketio
+ add the cdn file to html and initialize with const socket= io();
+ catch the evente and fired the event it's easy method
+
+
+
+
+how to  create your own event from server side and client side and catch from the other side
+server side ==> client side catch
+client side ==> server side catch
+in this both case we have to use the io.emit and io.on 
+
+Broadcasting -it's use to send the message to all user are connected
+
+1)user can seee how many users are connected
+2) if user connected then we wil show a welcome messafe to user and users can see how many users connected
+
+
+when we use soket.emit and io.socket.emit bro what is the differance?
+So, in summary:
+
+socket.emit is used on the client-side to send data or trigger events to the server.
+io.sockets.emit is used on the server-side to send data or trigger events to all connected clients.
+// Client-side code
+socket.emit('chatMessage', 'Hello, server!');
+// Server-side code this is use for the everyone who are connected
+io.sockets.emit('serverMessage', 'Hello, clients!');
+
+
+
+
+then how to pass the message to new join user welcome and another user show how many users are connected 
+for the new users   socket.emit('newuserjoin' , {message : 'Welcome Buddy...'})
+for other users   socket.broadcast.emit('newuserjoin',{message : `${usrs} users joinned`})
+this is done for the connection now comes into the disconnet user
+for other users   socket.broadcast.emit('newuserjoin',{message : `${usrs} users joinned`})
+
+
+5)what is namespace why weare user and how to create or use Namesapces;
+
+makke the variablue by using the io.of event
+
+const cnsp = io.of('/customenamespace') 
+now use the cnsp where you use io like
+io.on ==> cnsp.on for the special namespace just we are created
+
+
+
+
+6)what is room in the socket io?
+ans =>
+how to create the room?
+first create the namespace and with the help of that just create connection to namespace
+const cnsp = io.of('/rooms);
+const roomno = 1;
+cnsp.on('connection' , (socket)=>{
+socket.join(`room-${1}`);
+cnsp.sockets.in(`room-${1}`).emit('connectionroom' , 'you are in the room-1');
+})
